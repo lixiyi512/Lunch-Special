@@ -1,4 +1,4 @@
-# Lunch Roulette
+# Lunch Special
 
 ## Pre-requisites
 
