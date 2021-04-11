@@ -10,7 +10,7 @@ const MOCK_ITEMS_ARRAY: Restaurant[] = Array.from({ length: 20 }, (e, i) => ({
     }
 }));
 
-describe('SlotMachineComponent', () => {
+describe('Slot Machine Component Tests', () => {
     let component: SlotMachineComponent;
     let fixture: ComponentFixture<SlotMachineComponent>;
     let componentElement: HTMLElement;

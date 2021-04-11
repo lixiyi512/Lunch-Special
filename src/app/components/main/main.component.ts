@@ -66,8 +66,10 @@ export class MainComponent implements OnInit {
                     marker: this.mapService.setMarker(place.geometry.location, 'restaurant_red'),
                     selected: false
                 };
-                restaurant.marker.addListener('mouseover', () => this.onOverRestaurant(restaurant) );
-                restaurant.marker.addListener('mouseout', () => this.onLeaveRestaurant(restaurant) );
+                if (restaurant.marker) {
+                    restaurant.marker.addListener('mouseover', () => this.onOverRestaurant(restaurant) );
+                    restaurant.marker.addListener('mouseout', () => this.onLeaveRestaurant(restaurant) );
+                }
                 this.restaurantsArray.push(restaurant);
             }
         });
@@ -76,8 +78,10 @@ export class MainComponent implements OnInit {
     public removeRestaurant(restaurantId: number) {
         this.restaurantsArray = _.filter(this.restaurantsArray, (r) => {
             if (r.id === restaurantId) {
-                r.marker.setMap(null);
-                r.marker = null;
+                if (r.marker) {
+                    r.marker.setMap(null);
+                    r.marker = null;
+                }
             }
             return r.id !== restaurantId;
         });

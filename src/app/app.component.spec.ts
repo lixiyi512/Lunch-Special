@@ -1,4 +1,3 @@
-/// <reference types="@types/googlemaps" />
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,7 +10,7 @@ import { AppComponent } from './app.component';
 
 import { ComponentsModule } from './components/components.module';
 
-describe('AppComponent', () => {
+describe('App Component Tests', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [

@@ -30,7 +30,7 @@ module.exports = function (config) {
     singleRun: false,
     restartOnFileChange: true,
     files: [
-      './google-mock.js'
+      './google-maps-mock.js'
     ]
   });
 };
