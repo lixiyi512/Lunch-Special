@@ -1,0 +1,22 @@
+<div class="wrapper">
+    <div class="list-mask">
+        <ul class="result-box"
+            [@scroll]="{ value: state, params: { scrollHeight: scrollHeight }}"
+            (@scroll.done)="rotateItemArray()"
+        >
+            <li class="restaurant-name list-item"
+                [style.height]="itemHeight + 'px'"
+                *ngFor="let r of extendedItemArray"
+                (mouseenter)="onHover(r)"
+                (mouseleave)="onLeave(r)"
+                [ngClass]="{ 'selected': r?.selected }"
+            >
+                {{ r.place.name }}
+            </li>
+        </ul>
+    </div>
+    <div class="button-container">
+        <button type="button" class="spin-button btn btn-secondary"
+                (click)="spinIt()">SPIN</button>
+    </div>
+</div>

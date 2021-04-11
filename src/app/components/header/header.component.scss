@@ -1,0 +1,25 @@
+.header-bar {
+    width: 100%;
+    position: fixed;
+    border-bottom: 2px solid #d74828;
+    z-index: 100;
+
+    .header-inner {
+        padding: 10px 0;
+        font-size: 25px;
+        color: #d74828;
+        font-family: 'Baloo', cursive;
+        margin-left: 60px;
+    }
+
+    .header-right {
+        float: right;
+        background: url(../../../assets/icons/GitHub-Mark-64px.png);
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        margin-right: 60px;
+        margin-top: 16px;
+        cursor: pointer;
+    }
+}
