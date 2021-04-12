@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { MainComponent } from './main.component';
 import { SlotMachineComponent } from '../slot-machine/slot.component';
 import { RestaurantService } from '../../service/restaurant.service';
 
-const MOCK_RESTAURANT_ARRAY = [
+const MOCK_PLACES_RESPONSE = [
     {
         geometry: {
             location: {
@@ -35,6 +35,14 @@ const MOCK_POSITION = {
     }
 }
 
+const MOCK_RESTAURANT_LIST = [
+    {
+        id: 0,
+        place: { name: 'place_0' },
+        selected: false
+    },
+];
+
 describe('Main Component Tests', () => {
     let component: MainComponent;
     let fixture: ComponentFixture<MainComponent>;
@@ -45,22 +53,19 @@ describe('Main Component Tests', () => {
         TestBed.configureTestingModule({
             imports: [
                 BrowserModule,
-                CommonModule
+                CommonModule,
+                NoopAnimationsModule
             ],
             declarations: [
                 MainComponent,
                 SlotMachineComponent
             ],
-            // providers: [{
-            //     provide: RestaurantService,
-            //     useClass: mockRestaurantService
-            // }]
         }).compileComponents();
 
         // Create restaurant service functions to return mock restaurant array
         mockRestaurantService =  TestBed.get(RestaurantService);
         mockRestaurantService.initService = jasmine.createSpy().and.returnValue(undefined);
-        mockRestaurantService.initRestaurants = jasmine.createSpy().and.returnValue(of(MOCK_RESTAURANT_ARRAY));
+        mockRestaurantService.initRestaurants = jasmine.createSpy().and.returnValue(of(MOCK_PLACES_RESPONSE));
     }));
 
     beforeEach(() => {
@@ -78,7 +83,19 @@ describe('Main Component Tests', () => {
         component.mapService = { setMarker: () => {} };
         component.getPositionSuccessCallBack(MOCK_POSITION);
         tick();
-        expect(component.restaurantsArray.length).toEqual(MOCK_RESTAURANT_ARRAY.length);
+        expect(component.restaurantsArray.length).toEqual(MOCK_PLACES_RESPONSE.length);
+    }));
+
+    it('should trigger removeRestaurant function when clicking X', fakeAsync(() => {
+        component.restaurantsArray = MOCK_RESTAURANT_LIST;
+        fixture.detectChanges();
+        componentElement = fixture.debugElement.nativeElement;
+        console.log(component.restaurantsArray)
+        spyOn(component, 'removeRestaurant');
+        const icon: HTMLElement = componentElement.querySelector('.remove');
+        icon.click();
+        tick();
+        expect(component.removeRestaurant).toHaveBeenCalled();
     }));
 
     it('should be able to remove restaurant', fakeAsync(() => {
@@ -93,6 +110,6 @@ describe('Main Component Tests', () => {
         tick();
         expect(component.restaurantsArray.find(r => r.id === removedRestaurantId))
             .toEqual(undefined);
-        expect(component.restaurantsArray.length).toEqual(MOCK_RESTAURANT_ARRAY.length - 1);    
+        expect(component.restaurantsArray.length).toEqual(MOCK_PLACES_RESPONSE.length - 1);    
     }));
 });

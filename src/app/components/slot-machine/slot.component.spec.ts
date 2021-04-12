@@ -44,7 +44,6 @@ describe('Slot Machine Component Tests', () => {
 
     it('spin function should be called after click', fakeAsync(() => {
         spyOn(component, 'spinIt');
-
         const button = componentElement.querySelector('button');
         button.click();
         tick();
